@@ -1,0 +1,35 @@
+-- Create Users Table (extends default Supabase auth)
+CREATE TABLE profiles (
+  id UUID REFERENCES auth.users PRIMARY KEY,
+  username TEXT UNIQUE NOT NULL,
+  karma_points INTEGER DEFAULT 0,
+  xp INTEGER DEFAULT 0,
+  trust_score INTEGER DEFAULT 100
+);
+
+-- Create Animals Table (The "Nodes" on your map)
+CREATE TABLE animals (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  discoverer_id UUID REFERENCES profiles(id),
+  name TEXT NOT NULL,
+  species TEXT NOT NULL,
+  status TEXT,
+  latitude DOUBLE PRECISION NOT NULL,
+  longitude DOUBLE PRECISION NOT NULL,
+  photo_url TEXT,
+  is_verified BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Create Deeds Table (To track who did what for points)
+CREATE TABLE deeds (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID REFERENCES profiles(id),
+  animal_id UUID REFERENCES animals(id),
+  action_type TEXT NOT NULL, -- e.g., 'SCOUT', 'FEED', 'SHOWER'
+  points_awarded INTEGER,
+  synergy_multiplier BOOLEAN DEFAULT FALSE,
+  status TEXT DEFAULT 'PENDING', -- PENDING, VERIFIED, REJECTED
+  proof_url TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
