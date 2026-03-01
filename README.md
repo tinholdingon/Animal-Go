@@ -38,8 +38,6 @@ Media Handling: Uploading video/photo proof to a storage bucket for peer review.
 
 Logic: A RewardEngine.ts to handle complex point calculations and synergy multipliers.
 
-Aesthetic: I’m aiming for a "Neon-Nature" look—dark, earthy textures with glowing, high-tech UI elements.
-
 The Long-Term Vision (Optional/Future Phase)
 I’m focusing on the game mechanics and the community first. Only once the game is mature do I plan to transition this into a full DePIN/DeApp.
 
