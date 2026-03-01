@@ -1,0 +1,58 @@
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+
+export default function ScoutScreen() {
+  const [name, setName] = useState('');
+  const [species, setSpecies] = useState('');
+
+  const handleRegisterNode = () => {
+    if (!name || !species) {
+      Alert.alert('Missing Info', 'Please name and label the animal!');
+      return;
+    }
+    
+    // In reality, you'd trigger device camera here, check GPS, and save to Supabase.
+    Alert.alert(
+      'Node Registered!', 
+      `You found ${name}! +100 Karma Points added. (Pending Audit)`
+    );
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>Scout a New Guardian</Text>
+      
+      <View style={styles.photoPlaceholder}>
+        <Text style={styles.photoText}>[ TAP TO OPEN CAMERA ]</Text>
+      </View>
+
+      <TextInput 
+        style={styles.input} 
+        placeholder="Give them a Name (e.g. Sector-7 Rex)" 
+        placeholderTextColor="#555"
+        onChangeText={setName}
+      />
+      
+      <TextInput 
+        style={styles.input} 
+        placeholder="Species / Condition" 
+        placeholderTextColor="#555"
+        onChangeText={setSpecies}
+      />
+
+      <TouchableOpacity style={styles.button} onPress={handleRegisterNode}>
+        <Text style={styles.buttonText}>REGISTER & CLAIM 100 PTS</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#0B110B', padding: 20, justifyContent: 'center' },
+  header: { fontSize: 28, color: '#39FF14', fontWeight: 'bold', marginBottom: 20, textAlign: 'center' },
+  photoPlaceholder: { height: 200, backgroundColor: '#1A2118', borderRadius: 10, justifyContent: 'center', alignItems: 'center', marginBottom: 20, borderColor: '#39FF14', borderWidth: 1 },
+  photoText: { color: '#39FF14', fontWeight: 'bold' },
+  input: { backgroundColor: '#1A2118', color: '#FFF', padding: 15, borderRadius: 8, marginBottom: 15, fontSize: 16, borderColor: '#333', borderWidth: 1 },
+  button: { backgroundColor: '#FF5E00', padding: 18, borderRadius: 8, alignItems: 'center' },
+  buttonText: { color: '#FFF', fontWeight: 'bold', fontSize: 16 }
+});
